@@ -63,7 +63,7 @@ Use AJAX requests for saving caching server - website association.
 
 Create new empty git repository.
 
-In newly created repository create new application component that allows adding new websites and pages by importing [sitemap file](http://www.sitemaps.org/).
+In newly created repository create new application component (composer dependency) that allows adding new websites and pages by importing [sitemap file](http://www.sitemaps.org/).
 This functionality should be accessible via both command line and frontend.
 
 ## Task 7

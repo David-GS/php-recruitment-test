@@ -33,6 +33,16 @@
             <p class="bg-success">Hello <?= $this->user->getDisplayName() ?>!</p>
 
             <div class="padded">
+                <p>Total pages: <?= $this->getTotalPages() ?></p>
+            </div>
+            <div class="padded">
+                <p>Least Recently Visited Page: <?= $this->getLeastRecentlyVisitedPage() ?></p>
+            </div>
+            <div class="padded">
+                <p>Most Recently Visited Page: <?= $this->getMostRecentlyVisitedPage() ?></p>
+            </div>
+
+            <div class="padded">
                 <form class="form-inline" method="post" action="/website">
                     <div class="form-group">
                         <label for="exampleInputName2">Name</label>

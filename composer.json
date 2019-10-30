@@ -7,10 +7,8 @@
   },
   "autoload": {
     "files": [
-      "src/components.php"
-    ],
-    "psr-4": {
-      "Snowdog\\DevTest\\": "src"
-    }
+      "src/components.php",
+      "lib/CacheWarm.php"
+    ]
   }
 }

@@ -14,6 +14,7 @@
 
     <!-- Custom styles for this template -->
     <link href="/css/style.css" rel="stylesheet">
+    <script src="/js/varnishes.js"></script>
 </head>
 
 <body>
@@ -57,7 +58,11 @@
                     </tr>
                     <?php foreach ($this->getWebsites() as $website): /** @var \Snowdog\DevTest\Model\Website $website */ ?>
                         <tr>
-                            <td><input type="checkbox" <?= in_array($website->getWebsiteId(), $websiteIds) ? 'checked="checked"' : '' ?>/></td>
+                            <td><input type="checkbox" <?= in_array($website->getWebsiteId(), $websiteIds) ? 'checked="checked"' : '' ?>
+                                class="varnish-website-assign"
+                                data-varnish-id="<?= $varnish->getVarnishId() ?>"
+                                data-website-id="<?= $website->getWebsiteId() ?>"
+                            /></td>
                             <td><?= $website->getName() ?></td>
                             <td><?= $website->getHostname() ?></td>
                         </tr>

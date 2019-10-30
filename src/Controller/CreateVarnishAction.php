@@ -22,8 +22,30 @@ class CreateVarnishAction
     {
         $ip = $_POST['ip'];
 
-        // TODO - add module logic here
+        try {
+            if (empty($ip)) {
+                throw new \Exception('IP cannot be empty');
+            }
 
-        header('Location: /varnish');
+            if (!filter_var($ip, FILTER_VALIDATE_IP)) {
+                throw new \Exception("IP is not a valid IP address");
+            }
+
+            $user = $this->userManager->getByLogin($_SESSION['login']);
+            if (empty($user)) {
+                throw new \Exception('Unknown user');
+            }
+
+            if (!$this->varnishManager->create($user, $ip)) {
+                throw new \Exception('Cannot create new varnish');
+            }
+
+            $_SESSION['flash'] = 'Varnish ' . $ip . ' added!';
+
+        } catch (\Exception $exc) {
+            $_SESSION['flash'] = $exc->getMessage();
+        }
+
+        header('Location: /varnishes');
     }
 }

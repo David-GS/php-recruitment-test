@@ -16,3 +16,11 @@ body {
 .padded {
     padding: 15px;
 }
+
+#sitemap_import form {
+    margin-bottom: 5px;
+}
+
+#sitemap_import form input[type='file'] {
+    display: inline-block;
+}

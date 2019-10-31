@@ -17,6 +17,19 @@ class UserManager
         $this->database = $database;
     }
 
+    public function getById($id)
+    {
+        /** @var \PDOStatement $query */
+        $query = $this->database->prepare('SELECT * FROM users WHERE user_id = :id');
+        $query->setFetchMode(\PDO::FETCH_CLASS, User::class);
+        $query->bindParam(':id', $id, \PDO::PARAM_INT);
+        $query->execute();
+        /** @var User $user */
+        $user = $query->fetch(\PDO::FETCH_CLASS);
+
+        return $user;
+    }
+
     public function getByLogin($login)
     {
         /** @var \PDOStatement $query */

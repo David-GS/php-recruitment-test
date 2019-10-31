@@ -27,6 +27,18 @@ class WebsiteManager
         return $website;
     }
 
+    public function getByHostname($hostname) {
+        /** @var \PDOStatement $query */
+        $query = $this->database->prepare('SELECT * FROM websites WHERE hostname = :hostname');
+        $query->setFetchMode(\PDO::FETCH_CLASS, Website::class);
+        $query->bindParam(':hostname', $hostname, \PDO::PARAM_STR);
+        $query->execute();
+        /** @var Website $website */
+        $website = $query->fetch(\PDO::FETCH_CLASS);
+
+        return $website;
+    }
+
     public function getAllByUser(User $user)
     {
         $userId = $user->getUserId();

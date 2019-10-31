@@ -30,22 +30,7 @@
     <div>
         <h1>Cache Warmer</h1>
         <?php if ($this->user): ?>
-            <div class="padded">
-                <table class="table table-striped">
-                    <tr>
-                        <th>#</th>
-                        <th>Name</th>
-                        <th>Hostname</th>
-                    </tr>
-                    <?php foreach ($this->getWebsites() as $website): /** @var \Snowdog\DevTest\Model\Website $website */ ?>
-                        <tr>
-                            <td><?= $website->getWebsiteId() ?></td>
-                            <td><a href="/website/<?= $website->getWebsiteId() ?>"><?= $website->getName() ?></a></td>
-                            <td><?= $website->getHostname() ?></td>
-                        </tr>
-                    <?php endforeach ?>
-                </table>
-            </div>
+            <p class="bg-success">Hello <?= $this->user->getDisplayName() ?>!</p>
 
             <div class="padded">
                 <p>Total pages: <?= $this->getTotalPages() ?></p>
@@ -73,7 +58,46 @@
                 </form>
             </div>
 
-            <p class="bg-success">Hello <?= $this->user->getDisplayName() ?>!</p>
+            <div class="padded" id="sitemap_import">
+                <h3>Import sitemap from URL/file</h3>
+                <form class="form-inline" method="post" action="/importxml">
+                    <div class="form-group">
+                        <label for="url">URL (with http[s]:// prefix)</label>
+                        <input type="text" name="url" class="form-control" id="url"
+                               placeholder="http://example.com/sitemap.xml">
+                    </div>
+                    <button type="submit" name="import_sitemap" value="url" class="btn btn-primary">Import from URL</button>
+                </form>
+
+                <form class="form-inline" id="import_sitemap_file_form" method="post" action="/importxml" enctype="multipart/form-data">
+                    <div class="form-group">
+                        <label for="file">File (XML only)</label>
+                        <input type="file" name="file"
+                               placeholder="My Website">
+                    </div>
+                    <button type="submit" name="import_sitemap" value="file" class="btn btn-primary">Import from file</button>
+                </form>
+            </div>
+
+            <div class="padded">
+                <table class="table table-striped">
+                    <tr>
+                        <th>#</th>
+                        <th>Name</th>
+                        <th>Hostname</th>
+                    </tr>
+                    <?php foreach ($this->getWebsites() as $website): /** @var \Snowdog\DevTest\Model\Website $website */ ?>
+                        <tr>
+                            <td><?= $website->getWebsiteId() ?></td>
+                            <td><a href="/website/<?= $website->getWebsiteId() ?>"><?= $website->getName() ?></a></td>
+                            <td><?= $website->getHostname() ?></td>
+                        </tr>
+                    <?php endforeach ?>
+                </table>
+            </div>
+
+            
+
         <?php endif ?>
     </div>
 

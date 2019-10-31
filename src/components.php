@@ -22,6 +22,8 @@ use Snowdog\DevTest\Controller\RegisterAction;
 use Snowdog\DevTest\Controller\VarnishesAction;
 use Snowdog\DevTest\Controller\CreateVarnishLinkAction;
 use Snowdog\DevTest\Menu\VarnishesMenu;
+use Snowdog\DevTest\Command\ImportxmlCommand;
+use Snowdog\DevTest\Controller\ImportxmlAction;
 
 Menu::register(RegisterMenu::class, 250);
 CommandRepository::registerCommand('migrate_db', MigrateCommand::class);
@@ -41,5 +43,7 @@ RouteRepository::registerRoute('GET', '/varnishes', VarnishesAction::class, 'exe
 RouteRepository::registerRoute('POST', '/varnish', CreateVarnishAction::class, 'execute');
 RouteRepository::registerRoute('POST', '/varnish/assign', CreateVarnishLinkAction::class, 'execute');
 Menu::register(VarnishesMenu::class, 20);
+CommandRepository::registerCommand('importxml [userid] [source]', ImportxmlCommand::class);
+RouteRepository::registerRoute('POST', '/importxml', ImportxmlAction::class, 'execute');
 
 Migrations::registerComponentMigration('Snowdog\\DevTest', 4);

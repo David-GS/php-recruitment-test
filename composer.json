@@ -3,7 +3,8 @@
   "require": {
     "nikic/fast-route": "^1.0",
     "php-di/php-di": "^5.3",
-    "mnapoli/silly": "^1.3"
+    "mnapoli/silly": "^1.3",
+    "david-gs/sitemap-import": "dev-master"
   },
   "autoload": {
     "psr-4": {
@@ -13,5 +14,11 @@
       "src/components.php",
       "lib/CacheWarm.php"
     ]
-  }
+  },
+  "repositories": [
+    {
+        "type": "vcs",
+        "url": "https://github.com/David-GS/sitemap-import"
+    }
+  ]
 }

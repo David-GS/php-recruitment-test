@@ -2,6 +2,8 @@
 
 use Snowdog\DevTest\Component\Menu;
 use Snowdog\DevTest\Component\RouteRepository;
+use Snowdog\DevTest\Component\ACL;
+use Snowdog\DevTest\Model\UserManager;
 
 session_start();
 
@@ -26,6 +28,20 @@ switch ($route[0]) {
     case FastRoute\Dispatcher::FOUND:
         $controller = $route[1];
         $parameters = $route[2];
+
+        $loggedIn = UserManager::isLoggedIn();
+        $aclRestriction = ACL::getAclRouteRestriction($controller[0], $controller[1]);
+        if (! $loggedIn && $aclRestriction == ACL::LOGGED_IN) {
+            header("Location: /login");
+            die();
+        }
+
+        if ($loggedIn && $aclRestriction == ACL::LOGGED_OUT) {
+            header("HTTP/1.0 403 Forbidden");
+            require __DIR__ . '/../src/view/403.phtml';
+            break;
+        }
+
         $container->call($controller, $parameters);
         break;
 }

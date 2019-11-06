@@ -66,4 +66,9 @@ class UserManager
     {
         return hash('sha512', $password . $salt);
     }
+
+    public static function isLoggedIn()
+    {
+        return isset($_SESSION['login']) && !empty($_SESSION['login']);
+    }
 }

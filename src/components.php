@@ -24,20 +24,23 @@ use Snowdog\DevTest\Controller\CreateVarnishLinkAction;
 use Snowdog\DevTest\Menu\VarnishesMenu;
 use Snowdog\DevTest\Command\ImportxmlCommand;
 use Snowdog\DevTest\Controller\ImportxmlAction;
+use Snowdog\DevTest\Component\ACL;
+
+ACL::setDefaultRestriction(ACL::LOGGED_IN);
 
 Menu::register(RegisterMenu::class, 250);
 CommandRepository::registerCommand('migrate_db', MigrateCommand::class);
 Menu::register(WebsitesMenu::class, 10);
 RouteRepository::registerRoute('POST', '/website', CreateWebsiteAction::class, 'execute');
-RouteRepository::registerRoute('GET', '/login', LoginFormAction::class, 'execute');
-RouteRepository::registerRoute('POST', '/register', RegisterAction::class, 'execute');
+RouteRepository::registerRoute('GET', '/login', LoginFormAction::class, 'execute', ACL::LOGGED_OUT);
+RouteRepository::registerRoute('POST', '/register', RegisterAction::class, 'execute', ACL::LOGGED_OUT);
 RouteRepository::registerRoute('GET', '/', IndexAction::class, 'execute');
 RouteRepository::registerRoute('POST', '/page', CreatePageAction::class, 'execute');
 CommandRepository::registerCommand('warm [id]', WarmCommand::class);
 RouteRepository::registerRoute('GET', '/logout', LogoutAction::class, 'execute');
-RouteRepository::registerRoute('GET', '/register', RegisterFormAction::class, 'execute');
+RouteRepository::registerRoute('GET', '/register', RegisterFormAction::class, 'execute', ACL::LOGGED_OUT);
 Menu::register(LoginMenu::class, 200);
-RouteRepository::registerRoute('POST', '/login', LoginAction::class, 'execute');
+RouteRepository::registerRoute('POST', '/login', LoginAction::class, 'execute', ACL::LOGGED_OUT);
 RouteRepository::registerRoute('GET', '/website/{id:\d+}', WebsiteAction::class, 'execute');
 RouteRepository::registerRoute('GET', '/varnishes', VarnishesAction::class, 'execute');
 RouteRepository::registerRoute('POST', '/varnish', CreateVarnishAction::class, 'execute');
